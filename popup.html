@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: monospace; font-size: 12px; background: #1a1a1a; color: #e0e0e0; width: 320px; padding: 12px; }
+    h1 { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: #888; margin-bottom: 12px; border-bottom: 1px solid #333; padding-bottom: 6px; }
+
+    .section-label {
+      font-size: 9px; text-transform: uppercase; letter-spacing: 2px;
+      color: #555; margin-top: 14px; margin-bottom: 6px;
+      border-bottom: 1px solid #2a2a2a; padding-bottom: 4px;
+    }
+
+    label { display: block; font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px; margin-top: 8px; }
+
+    input, textarea, select {
+      width: 100%; padding: 6px 8px; background: #2a2a2a; border: 1px solid #444;
+      border-radius: 2px; color: #e0e0e0; font-family: monospace; font-size: 11px; outline: none;
+      appearance: none;
+    }
+    select { cursor: pointer; }
+    select:disabled { color: #555; }
+    textarea { resize: vertical; min-height: 48px; }
+    input:focus, textarea:focus, select:focus { border-color: #666; }
+
+    select[multiple] { min-height: 72px; padding: 4px; }
+    select[multiple] option { padding: 3px 6px; border-radius: 2px; }
+    select[multiple] option:checked { background: #2a5caa; color: #fff; }
+
+    .inline-add {
+      display: flex; gap: 4px; margin-top: 4px;
+    }
+    .inline-add input {
+      flex: 1;
+    }
+    .inline-add button {
+      flex: 0; white-space: nowrap; padding: 5px 8px;
+      background: #2a2a2a; color: #666; border: 1px solid #444;
+      border-radius: 2px; font-family: monospace; font-size: 11px;
+      cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
+    }
+    .inline-add button:hover { background: #333; color: #aaa; }
+    .inline-add button:disabled { color: #444; cursor: default; }
+
+    .actions { display: flex; gap: 6px; margin-top: 12px; }
+    button {
+      flex: 1; padding: 7px; font-family: monospace; font-size: 11px;
+      text-transform: uppercase; letter-spacing: 1px; border: none; border-radius: 2px; cursor: pointer;
+    }
+    #btn-save-link { background: #2a5caa; color: #fff; }
+    #btn-save-link:hover { background: #3a6cc0; }
+    #btn-save-link:disabled { background: #333; color: #666; cursor: default; }
+    #btn-save-cfg { background: #2a2a2a; color: #888; border: 1px solid #444; }
+    #btn-save-cfg:hover { background: #333; color: #aaa; }
+
+    #status { margin-top: 10px; font-size: 11px; min-height: 16px; letter-spacing: 0.5px; word-break: break-all; }
+    .ok  { color: #4caf50; }
+    .err { color: #f44336; }
+    .inf { color: #888; }
+
+    #current-url { margin-top: 8px; padding: 5px 8px; background: #222; border: 1px solid #2a2a2a; border-radius: 2px; font-size: 10px; color: #555; word-break: break-all; }
+    .hint { font-size: 9px; color: #444; margin-top: 2px; }
+  </style>
+</head>
+<body>
+  <h1>Linkwarden</h1>
+
+  <div class="section-label">Config</div>
+
+  <label>Instance URL</label>
+  <input type="url" id="cfg-base" placeholder="https://your-linkwarden-instance.com">
+
+  <label>API Key</label>
+  <input type="password" id="cfg-key" placeholder="Bearer token">
+
+  <div class="actions" style="margin-top:10px;">
+    <button id="btn-save-cfg">Save Config</button>
+    <button id="btn-reload" style="flex:0.4;background:#222;color:#666;border:1px solid #333;">↺ Reload</button>
+  </div>
+
+  <div class="section-label">Link</div>
+
+  <div id="current-url">—</div>
+
+  <label>Name</label>
+  <input type="text" id="link-name" placeholder="(auto from page title)">
+
+  <label>Description</label>
+  <textarea id="link-desc" placeholder="Optional notes..."></textarea>
+
+  <label>Tags <span class="hint">(ctrl/cmd+click for multiple)</span></label>
+  <select id="link-tags" multiple>
+    <option disabled value="">— save config to load —</option>
+  </select>
+  <div class="inline-add">
+    <input type="text" id="new-tag-name" placeholder="New tag name...">
+    <button id="btn-add-tag">+ Tag</button>
+  </div>
+
+  <label>Collection</label>
+  <select id="link-collection">
+    <option disabled value="">— save config to load —</option>
+  </select>
+  <div class="inline-add">
+    <input type="text" id="new-collection-name" placeholder="New collection name...">
+    <button id="btn-add-collection">+ Collection</button>
+  </div>
+
+  <div class="actions">
+    <button id="btn-save-link">Save Link</button>
+  </div>
+
+  <div id="status"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
